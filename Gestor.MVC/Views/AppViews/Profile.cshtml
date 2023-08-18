@@ -1,0 +1,440 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+}
+<!-- Sweet Alert -->
+<link href="~/Contenido/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+<script type="text/javascript">
+        var siteRoot = "@Url.Content("~/")";
+</script>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Inicio</h2>
+        <ol class="breadcrumb">
+            <li>
+                @*<a href="@Url.Action("Dashboard_1", "Dashboards")">Inicio</a>*@
+                <a href="@Url.Action("Profile", "AppViews")">Olimpiadas</a>
+            </li>
+            <li class="active">
+                <strong id="fr_total"></strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+
+<a class="dropdown-toggle" data-toggle="modal" data-target="#formulario4" href="#" id="popupCobrosHoy"></a>
+<div class="modal inmodal fade" id="formulario4" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title">Cobranzas del dia</h3>
+            </div>
+            <div class="modal-body">
+                <div class="ibox-content">
+                    <div class="table-responsive" id="lista1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="dropdown-toggle" data-toggle="modal" data-target="#formulario3" href="#" id="popupCobroHisto"></a>
+<div class="modal inmodal fade" id="formulario3" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title">Historial de Cobros</h3>
+            </div>
+            <div class="modal-body">
+                <div class="ibox-content">
+                    <div class="table-responsive" id="listahisto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="dropdown-toggle" data-toggle="modal" data-target="#formulario2" href="#" id="popupCobroTotal"></a>
+<div class="modal inmodal fade" id="formulario2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title">Cobro total del prestamo</h3>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <input type="hidden" id="fr_id" />
+                    <div class="form-group row">
+                        <label class="col-lg-2 col-form-label">Cliente</label>
+                        <div class="col-lg-6">
+                            <input type="text" id="fr_cliente2" class="type_client form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-2 col-form-label">Credito</label>
+                        <div class="col-lg-6"><input type="text" id="fr_credito2" class="form-control" disabled /></div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-2 col-form-label">Porcentaje</label>
+                        <div class="col-lg-6">
+                            <input type="text" id="fr_porcentaje" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-2 col-form-label">Monto credito</label>
+                        <div class="col-lg-6">
+                            <input type="hidden" id="fr_montototaltmp" />
+                            <input type="text" id="fr_montototal" class="form-control" disabled />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal" id="idClose">Close</button>
+                <button type="button" class="btn btn-primary" id="SaveTotal">Cobro total</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="dropdown-toggle" data-toggle="modal" data-target="#formulario" href="#" id="editPopup"></a>
+<div class="modal inmodal fade" id="formulario" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title">Cobro incompleto</h3>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <input type="hidden" id="fr_id" />
+                    <div class="form-group row">
+                        <label class="col-lg-2 col-form-label">Cliente</label>
+                        <div class="col-lg-6">
+                            <input type="text" id="fr_cliente" class="type_client form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-2 col-form-label">Credito</label>
+                        <div class="col-lg-6"><input type="text" id="fr_credito" class="form-control" disabled /></div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-2 col-form-label">Monto credito</label>
+                        <div class="col-lg-6">
+                            <input type="text" id="fr_montocredito" class="form-control" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-2 col-form-label">Nuevo monto</label>
+                        <div class="col-lg-6">
+                            <input type="text" id="fr_monto" class="form-control" placeholder="Ingrese nuevo monto" />
+                        </div>
+                    </div>
+                    <div class="form-group row" id="data_1">
+                        <label class="col-lg-2 col-form-label">Fecha cobranza</label>
+                        <div class="col-lg-6">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" id="fr_fecha" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal" id="idClose2">Close</button>
+                <button type="button" class="btn btn-primary" id="SaveData">Cobrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    @*<div class="form-group row" id="comboTipoCredito">
+                        <label class="col-lg-2 col-form-label">Tipo credito</label>
+                        <div class="col-lg-6">
+                            <select class="chosen-select form-control required" id="fr_tipocredito">
+                                <option value="0"> --Seleccionar-- </option>
+                                <option value="1">Diario</option>
+                                <option value="2">Semanal</option>
+                                <option value="5">Quincenal</option>
+                                <option value="3">Mensual</option>
+                                <option value="4">Flexible</option>
+                            </select>
+                        </div>
+                    </div>*@
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive" id="lista"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="old_id" />
+<input type="hidden" id="old_tipo" />
+<input type="hidden" id="old_fecha" />
+@section Styles {
+    @Styles.Render("~/Contenido/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link href="~/Contenido/bootstrap.css" rel="stylesheet" />
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/peity")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/dataPicker")
+    <script src="~/Scripts/plugins/dataTables/datatables.min.js?v=1.1"></script>
+
+    <!-- Sweet alert -->
+    <script src="~/Scripts/plugins/sweetalert/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        var listaPrestamosDetalle;
+        var listaPrestamosDetalleHisto;
+        var campos = [];
+        $(document).ready(function () {
+            $("span.pie").peity("pie", {
+                fill: ['#1ab394', '#d7d7d7', '#ffffff']
+            })
+
+            $(".line").peity("line", {
+                fill: '#1ab394',
+                stroke: '#169c81',
+            })
+
+            $(".bar").peity("bar", {
+                fill: ["#1ab394", "#d7d7d7"]
+            })
+
+        });
+        function listarTareas() {
+            $.ajax({
+                type: 'POST',
+                url: "ListadoTareas",
+                dataType: 'json',
+                data: {},
+                success: function (evt) {
+                    if (evt.Count > 0) {
+                        if (evt.Htmlview != "00") {
+                            $("#fr_total").html("Suma total cobrado: " + evt.Total + " (<a href='#' onclick='viewHoy()'>Ver detalle</a>)");
+                            listaPrestamosDetalleHisto = evt.ListaPrestamosDetalleHisto;
+                            listaPrestamosDetalle = evt.ListaPrestamosDetalle;
+                            if (evt.ListaHtmlview != null) {
+                                $("#lista").html(evt.ListaHtmlview[0]);
+                                $("#lista1").html(evt.ListaHtmlview[1]);
+                            }
+                        } else { $("#comboTipoCredito").hide(); }
+                    }
+                },
+                error: function (err) { alert("Error al cargar"); }
+            });
+        }
+        function update_(x, y, z) {
+            swal({
+                title: "Realizar cobranza?",
+                text: "La información se guardara temporalmente hasta su respectiva validación!",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Si, Guardar!",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "UpdateCobranza",
+                    dataType: 'json',
+                    data: {
+                        id: x,
+                        tipo: y,
+                        fecha: z
+                    },
+                    success: function (evt) {
+                        if (evt.Count > 0) {
+                            swal("Guardado!", "Cobranza Exitosamente!.", "success");
+                            $("#idClose").click();
+                            $("#lista").html(evt.Htmlview);
+                        } else {
+                            swal("Aviso!", "Error al registrar!.", "warning");
+                        }
+                    },
+                    error: function (err) { swal("Error", "Error al registrar!", "warning"); }
+                });
+            });
+        }
+        function edit_(a, b, c, d, e, f, g) {
+            $('#old_id').val(a);
+            $('#fr_cliente').val(b);
+            $('#old_tipo').val(c);
+            $('#fr_credito').val(d);
+            $('#fr_montocredito').val(e);
+            $("#fr_fecha").datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+                startDate: new Date()
+            }).datepicker("update", f);
+            $('#old_fecha').val(g);
+            $("#editPopup").click();
+        }
+        function pago_(a, b, c, d, e, f) {
+            //$('#old_id').val(a);
+            //$('#fr_cliente2').val(b);
+            //$('#old_tipo').val(c);
+            //$('#fr_credito2').val(d);
+            //$('#fr_porcentaje').val(e);
+            //if (e == 0) { $('#fr_montototal').val(f); }
+            //else { $('#fr_montototal').val(e * f); }
+            //$('#fr_montototaltmp').val(f);
+            //$("#popupCobroTotal").click();
+            swal({
+                title: "Realizar pago total?",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Si, Guardar!",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "PagoTotalCobranza",
+                    dataType: 'json',
+                    data: {
+                        id: a,
+                        tipo: $("#old_tipo").val(),
+                        monto1: f,
+                        fecha1: $("#old_fecha").val(),
+                        monto2: e,
+                        fecha2: $("#old_fecha").val()
+                    },
+                    success: function (evt) {
+                        if (evt.Count > 0) {
+                            swal("Guardado!", "Cobranza Exitosamente!.", "success");
+                            $("#idClose2").click();
+                            $("#lista").html(evt.Htmlview);
+                        } else {
+                            swal("Aviso!", "Error al registrar!.", "warning");
+                        }
+                    },
+                    error: function (err) { swal("Error", "Error al registrar!", "warning"); }
+                });
+            });
+        }
+        function histo_(x) {
+            $.ajax({
+                type: 'POST',
+                url: "ListaCobranzasHisto",
+                dataType: 'json',
+                data: { id: x, lista: listaPrestamosDetalleHisto },
+                success: function (evt) {
+                    if (evt.Count > 0) {
+                        $("#listahisto").html(evt.Htmlview);
+                        $("#popupCobroHisto").click();
+                    }
+                },
+                error: function (err) { alert("Error al cargar"); }
+            });
+        }
+        function ReloadLista() {
+            var newlista;
+            if ($('#fr_tipocredito').val() == "0") {
+                newlista = listaPrestamosDetalle;
+            } else {
+                $.each(listaPrestamosDetalle, function (i, item) {
+                    if (item.TipoCredito == $('#fr_tipocredito').val()) {
+                        newlista.push(item);
+                    }
+                });
+            }
+            $.ajax({
+                type: 'POST',
+                url: "ReListado",
+                dataType: 'json',
+                data: { datos: newlista },
+                success: function (evt) {
+                    if (evt.Count > 0) {
+                        $("#lista").html(evt.Htmlview);
+                    }
+                },
+                error: function (err) { alert("Error al cargar"); }
+            });
+        }
+        function wpp_(x) {
+            var tele = x.substring(0, 15);
+            location.href = "https://wa.me/" + $.trim(tele);
+        }
+        function save_() {
+            swal({
+                title: "Realizar renovacion?",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Si, Guardar!",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "SaveCobranza",
+                    dataType: 'json',
+                    data: {
+                        id: $("#old_id").val(),
+                        tipo: $("#old_tipo").val(),
+                        monto1: $("#fr_montocredito").val(),
+                        fecha1: $("#old_fecha").val(),
+                        monto2: $("#fr_monto").val(),
+                        fecha2: $("#fr_fecha").val()
+                    },
+                    success: function (evt) {
+                        if (evt.Count > 0) {
+                            swal("Guardado!", "Cobranza Exitosamente!.", "success");
+                            $("#idClose2").click();
+                            $("#lista").html(evt.Htmlview);
+                        } else {
+                            swal("Aviso!", "Error al registrar!.", "warning");
+                        }
+                    },
+                    error: function (err) { swal("Error", "Error al registrar!", "warning"); }
+                });
+            });
+        }
+        function viewHoy() { $("#popupCobrosHoy").click(); }
+
+        function OnPosicion(x, y, z) {
+            var valor = x.value;
+            var name = x.options[x.selectedIndex].text;
+            $.ajax({
+                type: 'POST',
+                url: "SavePosicion",
+                dataType: 'json',
+                data: {
+                    id: valor,
+                    posicion: name,
+                    idold: y,
+                    posicionold: z
+                },
+                success: function (evt) {
+                    if (evt.Count > 0) {
+                        listarTareas();
+                    }
+                },
+                error: function (err) { swal("Error", "Error al registrar!", "warning"); }
+            });
+        }
+    </script>
+}

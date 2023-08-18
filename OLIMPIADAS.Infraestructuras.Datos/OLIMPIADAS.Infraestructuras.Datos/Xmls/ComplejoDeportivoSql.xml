@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sqls>
+	<Sql>
+		<key>GetListaComplejoDeportivo</key>
+		<query>Exec ListaComplejoDeportivo</query>
+	</Sql>
+	<Sql>
+		<key>UpdateComplejoDeportivo</key>
+		<query>Exec UpdateComplejoDeportivo '{0}','{1}','{2}','{3}','{4}'</query>
+	</Sql>
+	<Sql>
+		<key>DeleteComplejoDeportivo</key>
+		<query>Exec DeleteComplejoDeportivo '{0}'</query>
+	</Sql>
+</Sqls>

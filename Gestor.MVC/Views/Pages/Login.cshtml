@@ -1,0 +1,100 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet | Login</title>
+    <link href="~/Contenido/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Contenido/animate.css" rel="stylesheet">
+    <link href="~/Contenido/style.css?v=1" rel="stylesheet">
+	<script src="~/Scripts/plugins/tinycon/tinycon.min.js?v=1"></script>
+</head>
+<body class="gray-bgLogin">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+                <img src="~/Contenido/img/prestamos.png" class="img-container img-responsive" />
+            </div>
+            <br />
+            <br />
+            <p style="color: #044d36;"><b>* Ingrese Usuario y Contraseña</b></p>
+            <form class="m-t" role="form" id="loginForm" action="#">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" id="Usuario" maxlength="20" required="" style="border-radius: 15px;">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" id="Clave" maxlength="20" required="" style="border-radius: 15px;">
+                </div>
+                <button type="button" class="btn btn-primary block full-width m-b" id="btnEnviar" style="border-radius: 10px; height:60px;">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+@Scripts.Render("~/bundles/jquery")
+
+
+<script>
+    $.message = "";
+    $(document).ready(function () {
+        $('#btnEnviar').click(function () {
+            Autenticar();
+        });
+
+        $('#Usuario').focus();
+
+        $('#loginForm').keypress(function (e) {
+            if (e.keyCode == '13') {
+                $('#btnEnviar').click();
+            }
+        });
+    });
+
+    function Autenticar() {
+        if (ValidarIngreso()) {
+            $.ajax({
+                type: "POST",
+                url: "Autenticar",
+                dataType: 'json',
+                data: { usuario: $('#Usuario').val(), password: $('#Clave').val() },
+                cache: false,
+                success: function (ev) {
+                    switch (ev) {
+                        case "1": location.href = "../AppViews/Profile"; break;
+                        //case 2: alert("El usuario ingresado no existe."); break;
+                        //case 3: alert("El usuario o clave son incorrectos."); break;
+                        //case 4: alert("Usuario inactivo."); break;
+                        //case -1: alert("Ha ocurrido un error."); break;
+                        //case -2: alert("No hay comunicacion con el servidor"); break;
+                        default: alert(ev); break;
+                    }
+                },
+                error: function (req, status, error) {
+                    $('#accionResultado').addClass("action-error");
+                    $('#accionResultado').html("Ha ocurrido un error.");
+                }
+            });
+        }
+        else { alert($.message); }
+    }
+
+    function ValidarIngreso() {
+        var flag = true;
+        $.message = "";
+        if ($('#Usuario').val() == "") {
+            $.message += "Ingrese usuario.";
+            flag = false;
+        } else {
+            if ($('#Clave').val() == "") {
+                $.message += "Ingrese clave.";
+                flag = false;
+            }
+        }
+        return flag;
+    }
+</script>

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sqls>
+	<Sql>
+		<key>GetLogin</key>
+		<query>EXEC Login '{0}'</query>
+	</Sql>
+</Sqls>

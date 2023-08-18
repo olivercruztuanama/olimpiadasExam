@@ -1,0 +1,155 @@
+﻿@model Gestor.MVC.Models.Objetos
+
+@{
+    ViewBag.Title = "Menu";
+    var tienHijos = false;
+}
+
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Mantenimiento Menú</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Dashboard_1", "Dashboards")">Inicio</a>
+            </li>
+            <li class="active">
+                <strong>Mantenimiento de barra de Menú</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+
+<!--Carga Meús-->
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-md-4">
+            <div id="nestable-menu">
+                <button type="button" data-action="expand-all" class="btn btn-white btn-sm">Expandir</button>
+                <button type="button" data-action="collapse-all" class="btn btn-white btn-sm">Comprimir</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Nestable custom theme list</h5>
+                    <div class="ibox-tools">
+                        <a class="dropdown-toggle" data-toggle="modal" data-target="#myModal" href="#" title="Agregar">
+                            <img src="~/Contenido/Images/Plus.png" />
+                        </a>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>                      
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <p class="m-b-lg">
+                        Each list you can customize by standard css styles. Each element is responsive so you can add to it any other element to improve functionality of list.
+                    </p>
+                    <div class="dd" id="nestable">
+                        <ol class="dd-list">
+                            
+                            @foreach (var item in Model.ListaMenuPortalPadres)
+                            {
+                                tienHijos = false;
+                                <li class="dd-item" data-id="@item.Menucodi">
+                                    <div class="dd-handle">
+                                        <span class="label label-info"><i class="fa fa-users"></i></span> @item.Menutitle
+                                    </div>
+
+                                                                                                
+                                @foreach (var hijo in Model.ListaMenuPortalHijos)
+                                    {
+                                        if (hijo.Padrecodi == item.Menucodi)
+                                        {
+                                            tienHijos = true;
+                                        }                                    
+                                    }                                
+                               
+                                    @if (tienHijos)
+                                    {
+                                        <ol class="dd-list">
+                                            @foreach (var hijo in Model.ListaMenuPortalHijos)
+                                            {
+                                                if (hijo.Padrecodi == item.Menucodi)
+                                                {
+                                                    <li class="dd-item" data-id="@hijo.Menucodi">
+                                                        <div class="dd-handle">
+                                                            <span class="pull-right"> @hijo.Menuurl </span>
+                                                            <span class="label label-info"><i class="fa fa-cog"></i></span> @hijo.Menutitle
+                                                        </div>
+                                                    </li>
+                                                }
+                                                            
+                                            }
+                                        </ol>
+                                    }                                                                                                  
+                                </li>
+                            }                                                     
+                        </ol>
+                    </div>
+                    <div class="m-t-md">
+                        <h5>Serialised Output</h5>
+                    </div>
+                    <textarea id="nestable-output" class="form-control"></textarea>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--Fin Carga Menús-->
+
+
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <i class="fa fa-laptop modal-icon"></i>
+                <h4 class="modal-title">Registrar Elemento Menú</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group"><label>Titulo</label> <input type="text" placeholder="Titulo del elemento menú" class="form-control"></div>
+                    <div class="form-group"><label>Descripción</label> <input type="text" placeholder="Descripción Menu" class="form-control"></div>
+                    <div class="form-group"><label>Menú URL</label> <input type="text" placeholder="Url del Menù" class="form-control"></div>
+                    <div class="form-group"><label>Menu Padre</label> 
+                        <select class="form-control m-b" name="cbpadres">
+                            <option value="-1">-NINGUNO-</option>
+                            @foreach (var item in Model.ListaMenuPortalPadres)
+                            {
+                                <option value="@item.Menucodi">@item.Menutitle</option>
+                            }
+                        </select>
+                        
+                   </div>
+                    <div class="form-group"><label>Email</label> <input type="email" placeholder="Enter email" class="form-control"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="SaveData">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/Contenido/plugins/dataTables/dataTablesStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/nestable")
+   <script src="~/Contenido/Scripts/menu.js"></script>
+}

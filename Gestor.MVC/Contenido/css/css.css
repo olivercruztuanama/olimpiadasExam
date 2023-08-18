@@ -1,0 +1,32 @@
+﻿
+
+.loading 
+{
+	display:none;
+	width:220px;
+	height:80px;
+	padding:13px;
+	background-color:#fff;
+	border:3px solid #3D90CB;
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	position:absolute;
+	z-index:20000; 
+}
+
+.loading-image 
+{
+	width: 60px;
+	float: left;
+}
+
+.loading-text 
+{
+	width:120px;
+	float:left;
+	color:#6797BA;
+	font-weight:bold;
+	line-height:50px;
+	font-size:13px;
+}

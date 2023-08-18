@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sqls>
+	<Sql>
+		<key>GetListaSedes</key>
+		<query>Exec ListaSedes</query>
+	</Sql>
+	<Sql>
+		<key>UpdateSedes</key>
+		<query>Exec UpdateSedes '{0}','{1}','{2}'</query>
+	</Sql>
+	<Sql>
+		<key>DeleteSedes</key>
+		<query>Exec DeleteSedes '{0}'</query>
+	</Sql>
+</Sqls>

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{80D0E470-C887-4752-A286-B6A181C32AC9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OLIMPIADAS.Infraestructuras.Datos</RootNamespace>
+    <AssemblyName>OLIMPIADAS.Infraestructuras.Datos</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helper\General\LoginHelper.cs" />
+    <Compile Include="Helper\Sis\TipoComplejosDeportivosHelper.cs" />
+    <Compile Include="Helper\Sis\ComplejoDeportivoHelper.cs" />
+    <Compile Include="Helper\Sis\EstadosHelper.cs" />
+    <Compile Include="Helper\Sis\SedesHelper.cs" />
+    <Compile Include="Helper\Sis\EquipamientosHelper.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Repositorio\General\GeneralRepository.cs" />
+    <Compile Include="Repositorio\Sis\ComplejoDeportivoRepository.cs" />
+    <Compile Include="Repositorio\Sis\EquipamientosRepository.cs" />
+    <Compile Include="Repositorio\Sis\EstadosRepository.cs" />
+    <Compile Include="Repositorio\Sis\SedesRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorio\Sis\TipoComplejosDeportivosRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\OLIMPIADAS.Base\OLIMPIADAS.Base.csproj">
+      <Project>{7187ADB8-27C6-4E5D-82CE-19560DE31ABD}</Project>
+      <Name>OLIMPIADAS.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OLIMPIADAS.Dominio.DTO\OLIMPIADAS.Dominio.DTO.csproj">
+      <Project>{1DB40FA6-91AD-435B-BC1A-1434A54DEC37}</Project>
+      <Name>OLIMPIADAS.Dominio.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\OLIMPIADAS.Dominio.Interfaces\OLIMPIADAS.Dominio.Interfaces\OLIMPIADAS.Dominio.Interfaces.csproj">
+      <Project>{D4FFB24C-5467-4324-9E58-3FDEEF14EF0F}</Project>
+      <Name>OLIMPIADAS.Dominio.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Xmls\TipoComplejosDeportivosSql.xml" />
+    <Content Include="Xmls\ComplejoDeportivoSql.xml" />
+    <Content Include="Xmls\EstadosSql.xml" />
+    <Content Include="Xmls\SedesSql.xml" />
+    <Content Include="Xmls\LoginSql.xml" />
+    <Content Include="Xmls\EquipamientosSql.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

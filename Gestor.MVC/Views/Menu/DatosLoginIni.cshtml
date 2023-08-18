@@ -1,0 +1,23 @@
+﻿@{
+    OLIMPIADAS.Dominio.DTO.Login.UsuariosDTO datos = ViewBag.DatosLoginIni;
+}
+<div class="dropdown profile-element">
+    <span>
+        <img alt="image" class="img-circle" src="~/Images/profile_small.jpg" />
+    </span>
+    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+        @if (datos != null)
+        {
+        <span class="clear">
+            <span class="block m-t-xs">
+                <strong class="font-bold">@datos.Nombre (@datos.Usuario)</strong>
+            </span> @*<span class="text-muted text-xs block" style="color: #FFFFFF">Opciones<b class="caret"></b></span>*@
+        </span>
+        }
+    </a>
+    @*<ul class="dropdown-menu animated fadeInRight m-t-xs">
+        <li><a href="@Url.Action("Profile", "AppViews")">Cambiar Contraseña</a></li>
+        <li class="divider"></li>
+        <li><a href="@Url.Action("Login", "Pages")">Cerrar Session</a></li>
+    </ul>*@
+</div>
